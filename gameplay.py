@@ -3,6 +3,7 @@ import config
 
 
 def game_rules_description():
+    # store game description
     rules = ('''
 Welcome in Tic Tac Toe game
 
@@ -16,6 +17,7 @@ Rules:
 
 
 def framing(framed_text):
+    # creating frame around text
     next_line='\n'
     vertical_frame_left="║ "
     vertical_frame_right=" ║"
@@ -37,6 +39,7 @@ def framing(framed_text):
 
 
 def player1_choice_sign():
+    # assign to players their choice, tuple
     p1_sign = input("Player1, please choose your sign 'O' or 'X': ")
     check = False
     p2_sign = ""
@@ -56,32 +59,57 @@ def player1_choice_sign():
     return p1_sign, p2_sign
 
 
-def player1():
+def player1(valid_pos):
+    # validate choice of player1 and store index of board and check occupation of position on board
     print("Player 1")
-    p1 = input("Please choose the position of your sight: ")
-    while not p1.isdigit():
-        print("Please enter digits")
-        p1 = input("Please choose the position of your sight: ")
-    while not (int(p1) in config.position_range):
-        print(f"Please enter digits between {config.position_range}, excluding max")
-        p1 = input("Please choose the position of your sight: ")
+    p1 = input("Please choose the position of your sign: ")
+    while not (p1 in valid_pos):
+        if p1.isdigit():
+            p1 = int(p1)
+            if p1 in config.position_range:
+                print('This position is occupied')
+                p1 = input('Please choose another digit between 1 and 9')
+                continue
+            else:
+                print('Your number is out of range')
+                p1 = input("Please chose correct digit between 1 and 9")
+                continue
+        else:
+            print('Your value has to be an integer')
+            p1 = input('Please choose another digit between 1 and 9')
     return int(p1)
 
 
-def player2():
-    print('Player2')
-    p2 = input("Please choose the position of your sight: ")
-    while not p2.isdigit():
-        print("Please enter digits")
-        p2 = input("Please choose the position of your sight: ")
-    while not (int(p2) in config.position_range):
-        print(f"Please enter digits between {config.position_range}, excluding max")
-        p2 = input("Please choose the position of your sight: ")
+def player2(valid_pos):
+    # validate choice of player1 and store index of board and check occupation of position on board
+    print("Player 2")
+    p2 = input("Please choose the position of your sign: ")
+    while not (p2 in valid_pos):
+        if p2.isdigit():
+            p2 = int(p2)
+            if p2 in config.position_range:
+                print('This position is occupied')
+                p2 = input('Please choose another digit between 1 and 9')
+                continue
+            else:
+                print('Your number is out of range')
+                p2 = input("Please chose correct digit between 1 and 9")
+                continue
+        else:
+            print('Your value has to be an integer')
+            p2 = input('Please choose another digit between 1 and 9')
     return int(p2)
 
+def draw(valid_pos):
+    # check if draw
+    draw = False
+    if len(valid_pos) == 0:
+        draw = True
+    return draw
 
-def win_check():
-    board = config.board_pos
+
+def win_check(board):
+    # checking, if there is winning pattern
     win = False
     if board[0] == 'X' and board[1] == 'X' and board[2] == 'X':
         win = True
@@ -115,11 +143,11 @@ def win_check():
         win = True
     elif board[2] == 'O' and board[4] == 'O' and board[6] == 'O':
         win = True
-    print(TicTacToe_board.game_board())
     return win
 
 
 def keep_playing():
+    # ask for playing, if yes we get True value output
     playing = input('Do you wanna play the game? y/n')
     game_on_off = False
     valid = True
@@ -134,3 +162,5 @@ def keep_playing():
             playing = input('I don\'t understand, please enter y or n')
             continue
     return game_on_off
+
+

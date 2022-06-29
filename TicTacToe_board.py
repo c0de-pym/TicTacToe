@@ -1,5 +1,5 @@
 from config import board_pos_start
-from config import board_pos
+
 
 
 def game_rules():
@@ -20,18 +20,18 @@ def game_rules():
     return
 
 
-def game_board():
+def game_board(valid_pos):
     board = f'''
             |       |
-        {board_pos[0]}   |   {board_pos[1]}   |    {board_pos[2]}
+        {valid_pos[0]}   |   {valid_pos[1]}   |   {valid_pos[2]}
             |       |
     -------------------------
             |       |
-        {board_pos[3]}   |   {board_pos[4]}   |   {board_pos[5]}
+        {valid_pos[3]}   |   {valid_pos[4]}   |   {valid_pos[5]}
             |       |
     -------------------------    
             |       |
-        {board_pos[6]}   |   {board_pos[7]}   |   {board_pos[8]}      
+        {valid_pos[6]}   |   {valid_pos[7]}   |   {valid_pos[8]}      
             |       |                   
         '''
     print(board)
